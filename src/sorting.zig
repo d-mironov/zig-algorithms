@@ -54,3 +54,16 @@ pub fn selection_sort(arr: []i32) void {
         swap(&arr[min_index], &arr[step]);
     }
 }
+
+pub fn insertion_sort(arr: []i32) void {
+    var step: u32 = 1;
+    while (step < arr.len) : (step += 1) {
+        var k = arr[step];
+        var i: u32 = step - 1;
+        while (k < arr[i] and i > 0) : (i -= 1) {
+            print("{d}\n", .{i});
+            arr[i + 1] = arr[i];
+        }
+        arr[i + 1] = k;
+    }
+}
