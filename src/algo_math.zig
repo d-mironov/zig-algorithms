@@ -74,3 +74,10 @@ pub fn fibonacci_oneline(n: u32) u32 {
 pub fn euclidian_greatest_common_divisor(a: u32, b: u32) u32 {
     return if (b == 0) a else euclidian_greatest_common_divisor(b, a % b);
 }
+
+pub fn faculty(n: u32) u32 {
+    if (n == 0 or n == 1) {
+        return 1;
+    }
+    return n * faculty(n - 1);
+}
