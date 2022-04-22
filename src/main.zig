@@ -2,6 +2,7 @@ const std = @import("std");
 const fac = @import("faculty.zig");
 const sort = @import("sort.zig");
 const search = @import("search.zig");
+const math = @import("algo_math.zig");
 const print = std.debug.print;
 
 pub fn main() anyerror!void {
@@ -23,4 +24,15 @@ pub fn main() anyerror!void {
     print("arr search 7: {d}\n", .{try search.binary(&arr4, 7)});
     print("arr linear search 7: {d}\n", .{try search.linear(&arr4, 7)});
     //print("arr linear search 10: {d}\n", .{try search.linear(&arr4, 10)});
+    //
+    var i: u32 = 0;
+    while (i < 10) : (i += 1) {
+        print("{d} ", .{math.fibonacci(i)});
+    }
+    print("\n", .{});
+
+    i = 0;
+    while (i < 10) : (i += 1) {
+        print("{d} ", .{math.fibonacci_oneline(i)});
+    }
 }
