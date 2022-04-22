@@ -70,3 +70,7 @@ pub fn fibonacci(n: u32) u32 {
 pub fn fibonacci_oneline(n: u32) u32 {
     return if (n == 0 or n == 1) 1 else fibonacci(n - 1) + fibonacci(n - 2);
 }
+
+pub fn euclidian_greatest_common_divisor(a: u32, b: u32) u32 {
+    return if (b == 0) a else euclidian_greatest_common_divisor(b, a % b);
+}
