@@ -68,7 +68,7 @@ pub fn fibonacci(n: u32) u32 {
 }
 
 pub fn fibonacci_oneline(n: u32) u32 {
-    return if (n == 0 or n == 1) 1 else fibonacci(n - 1) + fibonacci(n - 2);
+    return if (n == 0 or n == 1) 1 else fibonacci_oneline(n - 1) + fibonacci_oneline(n - 2);
 }
 
 pub fn euclidian_greatest_common_divisor(a: u32, b: u32) u32 {
@@ -80,4 +80,8 @@ pub fn faculty(n: u32) u32 {
         return 1;
     }
     return n * faculty(n - 1);
+}
+
+pub fn faculty_oneline(n: u32) u32 {
+    return if (n == 0 or n == 1) 1 else n * faculty_oneline(n - 1);
 }

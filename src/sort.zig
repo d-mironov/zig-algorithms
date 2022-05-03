@@ -1,5 +1,6 @@
 const std = @import("std");
 const print = std.debug.print;
+const rng = std.rand.DefaultPrng;
 
 fn swap(a: *i32, b: *i32) void {
     const tmp = a.*;
@@ -66,4 +67,41 @@ pub fn insertion(arr: []i32) void {
         }
         arr[i + 1] = k;
     }
+}
+
+pub fn partition(arr: []i32, left: i32, right: i32) i32 {
+    var low = @intCast(u32, left);
+    var high = @intCast(u32, right);
+    var pivot = arr[low];
+
+    if (arr.len == 0) {
+        return 0;
+    }
+    while (low < high) {
+        while (arr[low] < pivot) {
+            low += 1;
+        }
+        while (arr[high] > pivot) {
+            high -= 1;
+        }
+        if (arr[low] == arr[high]) {
+            return @intCast(i32, low);
+        }
+        if (low < high) {
+            swap(&arr[low], &arr[high]);
+        }
+    }
+    return @intCast(i32, low);
+}
+
+pub fn quicksort_recursive(arr: []i32, left: i32, right: i32) void {
+    if (left < right) {
+        var pivot = partition(arr, left, right);
+        quicksort_recursive(arr, left, pivot - 1);
+        quicksort_recursive(arr, pivot + 1, right);
+    }
+}
+
+pub fn quicksort(arr: []i32) void {
+    quicksort_recursive(arr, 0, @intCast(i32, (arr.len - 1)));
 }
