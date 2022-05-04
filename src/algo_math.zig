@@ -1,32 +1,47 @@
 const std = @import("std");
 const print = std.debug.print;
 const HashMap = std.AutoHashMap;
+const time = std.time;
+// const c = @cImport({
+//     @cInclude("time.h");
+// });
 
-pub fn sieve_of_erathostenes_arr(n: u32, verbose: bool) !void {
+pub fn sieve_of_erathostenes_arr(n: u64, verbose: bool) !void {
     var allocator = std.heap.page_allocator;
     var sieve = try allocator.alloc(bool, n + 1);
+    defer allocator.free(sieve);
     for (sieve) |_, index| {
         sieve[index] = true;
     }
     sieve[0] = false;
     sieve[1] = false;
-
-    var i: u32 = 2;
+    var i: u64 = 2;
+    // var start = c.clock();
+    var start = time.milliTimestamp();
     while (i * i < n) : (i += 1) {
         if (sieve[i] == true) {
-            var j: u32 = i * i;
+            var j: u64 = i * i;
             while (j <= n) : (j += i) {
                 sieve[j] = false;
             }
         }
     }
+    var msec = time.milliTimestamp() - start;
+    // var diff = c.clock() - start;
+    // var msec = @divFloor(diff * 1000, c.CLOCKS_PER_SEC);
     if (verbose == true) {
+        i = 1;
         for (sieve) |e, k| {
             if (e == true) {
-                print("{d}\n", .{k});
+                print("\t{d:8}", .{k});
+                i += 1;
+                if (i % 8 == 0) {
+                    print("\n", .{});
+                }
             }
         }
     }
+    print("\n\n[+] prime sieve took {d} milliseconds\n", .{msec});
 }
 
 pub fn sieve_of_erathostenes_hash(n: u32, verbose: bool) !void {
@@ -41,6 +56,7 @@ pub fn sieve_of_erathostenes_hash(n: u32, verbose: bool) !void {
     try sieve.put(1, false);
 
     i = 2;
+    var start = time.milliTimestamp();
     while (i * i <= n) : (i += 1) {
         if (sieve.get(i) == true) {
             var j: u32 = i * i;
@@ -49,6 +65,7 @@ pub fn sieve_of_erathostenes_hash(n: u32, verbose: bool) !void {
             }
         }
     }
+    var msec = time.milliTimestamp() - start;
     if (verbose == true) {
         var iterator = sieve.iterator();
         i = 0;
@@ -58,6 +75,7 @@ pub fn sieve_of_erathostenes_hash(n: u32, verbose: bool) !void {
             }
         }
     }
+    print("\n\n[+] prime sieve took {d} milliseconds\n", .{msec});
 }
 
 pub fn fibonacci(n: u32) u32 {

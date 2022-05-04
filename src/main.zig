@@ -20,4 +20,7 @@ pub fn main() anyerror!void {
     var arr4 = [_]i32{};
     sort.quicksort(&arr4, true);
     sort.print_arr(&arr4);
+
+    try math.sieve_of_erathostenes_arr(1000000, false);
+    try math.sieve_of_erathostenes_hash(1000000, false);
 }

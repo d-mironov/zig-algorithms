@@ -26,6 +26,10 @@ fn swap(a: *i32, b: *i32) void {
 /// > `arr`: Array to print
 ///
 pub fn print_arr(arr: []i32) void {
+    if (arr.len == 0) {
+        print("[!] arr empty => nothing to print\n", .{});
+        return;
+    }
     for (arr) |e| {
         print("| {d} ", .{e});
     }
