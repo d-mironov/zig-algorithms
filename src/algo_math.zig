@@ -6,6 +6,16 @@ const time = std.time;
 //     @cInclude("time.h");
 // });
 
+/// # Prime Sieve of Erathostenes
+/// ----------------------------------------------------------
+/// This calculates all primes until `n`.
+/// In most cases just used as a performance test.
+/// Prints the time in ms taken for calculation at the end.
+/// ----------------------------------------------------------
+/// Arguments:
+/// > `n`: number until the prime numbers are calculated
+/// > `verbose`: `true` if you want to print all found primes
+/// ----------------------------------------------------------
 pub fn sieve_of_erathostenes_arr(n: u64, verbose: bool) !void {
     var allocator = std.heap.page_allocator;
     var sieve = try allocator.alloc(bool, n + 1);
