@@ -3,24 +3,43 @@ const sort = @import("sort.zig");
 const search = @import("search.zig");
 const math = @import("algo_math.zig");
 const print = std.debug.print;
+const ds = @import("datastructures.zig");
+const Node = ds.Node;
+const Stack = ds.Stack;
 
 pub fn main() anyerror!void {
-    var arr1 = [_]i32{ 76, 1, 35, 75, 56, 7, 8, 96, 54, 53 };
-    sort.quicksort(&arr1, true);
-    sort.print_arr(&arr1);
+    var str1 = "Hello world";
+    var n1 = ds.Node(u32).new(10, undefined, undefined);
+    var n2 = ds.Node([]const u8).new(str1, undefined, undefined);
+    var n3 = ds.Node([]const u8).new("This is nice", undefined, undefined);
 
-    var arr2 = [_]i32{ 5, 5, 5, 5 };
-    sort.quicksort(&arr2, true);
-    sort.print_arr(&arr2);
+    var new_node = try std.heap.page_allocator.create(Node(u32));
+    new_node.data = 10;
 
-    var arr3 = [_]i32{ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
-    sort.quicksort(&arr3, true);
-    sort.print_arr(&arr3);
+    print("n1 data: {d}\n", .{n1.get()});
+    print("n2 data: {s}\n", .{n2.get()});
+    print("n3 data: {s}\n", .{n3.get()});
+    print("new_node data: {d}\n", .{new_node.data});
 
-    var arr4 = [_]i32{};
-    sort.quicksort(&arr4, true);
-    sort.print_arr(&arr4);
+    var stack1 = Stack(u32).init();
+    //stack1.head = &n1;
+    try stack1.push(50);
+    try stack1.push(10);
+    try stack1.push(20);
+    try stack1.push(100);
 
-    try math.sieve_of_erathostenes_arr(1000000, false);
-    try math.sieve_of_erathostenes_hash(1000000, false);
+    stack1.show();
+
+    print("pop1: {}\n", .{stack1.pop()});
+
+    stack1.show();
+
+    _ = stack1.pop();
+    stack1.show();
+    _ = stack1.pop();
+    stack1.show();
+    _ = stack1.pop();
+    stack1.show();
+    _ = stack1.pop();
+    stack1.show();
 }
