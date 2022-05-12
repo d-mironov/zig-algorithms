@@ -7,3 +7,4 @@ Anyone is free to contribute here and is really appreciated if you do so.
 
 #### Contact
 **Discord:** `moonraccoon#1337`
+**Mail:** [mail@moonraccoon.sh](mailto:mail@moonraccoon.sh)
