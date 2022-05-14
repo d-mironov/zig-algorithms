@@ -6,40 +6,24 @@ const print = std.debug.print;
 const ds = @import("datastructures.zig");
 const Node = ds.Node;
 const Stack = ds.Stack;
+const list = ds.list;
 
 pub fn main() anyerror!void {
-    var str1 = "Hello world";
-    var n1 = ds.Node(u32).new(10, undefined, undefined);
-    var n2 = ds.Node([]const u8).new(str1, undefined, undefined);
-    var n3 = ds.Node([]const u8).new("This is nice", undefined, undefined);
+    var ll1 = list(u32).init();
 
-    var new_node = try std.heap.page_allocator.create(Node(u32));
-    new_node.data = 10;
+    _ = ll1.push_back(1);
+    _ = ll1.push_back(2);
+    _ = ll1.push_back(5);
+    _ = ll1.push_front(10);
+    ll1.show();
 
-    print("n1 data: {d}\n", .{n1.get()});
-    print("n2 data: {s}\n", .{n2.get()});
-    print("n3 data: {s}\n", .{n3.get()});
-    print("new_node data: {d}\n", .{new_node.data});
+    _ = ll1.insert(4, 20);
+    ll1.show();
+    _ = ll1.insert(6, 20);
+    ll1.show();
 
-    var stack1 = Stack(u32).init();
-    //stack1.head = &n1;
-    try stack1.push(50);
-    try stack1.push(10);
-    try stack1.push(20);
-    try stack1.push(100);
-
-    stack1.show();
-
-    print("pop1: {}\n", .{stack1.pop()});
-
-    stack1.show();
-
-    _ = stack1.pop();
-    stack1.show();
-    _ = stack1.pop();
-    stack1.show();
-    _ = stack1.pop();
-    stack1.show();
-    _ = stack1.pop();
-    stack1.show();
+    _ = ll1.del(4);
+    ll1.show();
+    _ = ll1.del(4);
+    ll1.show();
 }
