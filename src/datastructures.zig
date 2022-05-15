@@ -121,6 +121,17 @@ pub fn list(comptime T: type) type {
             return Self{};
         }
 
+        /// # `list` - empty check function
+        /// ----------------------------------------------
+        /// Checks if the list is empty
+        /// ----------------------------------------------
+        /// Return:
+        /// > `bool`: `true` if empty, else `false`.
+        /// ----------------------------------------------
+        pub fn is_empty(self: Self) bool {
+            return (self.size == 0);
+        }
+
         /// # `list` push back function
         /// ---------------------------------------------------------------
         /// Appends the given element to the end of the list
@@ -264,6 +275,38 @@ pub fn list(comptime T: type) type {
             new_node.prev.?.next = new_node;
             self.size += 1;
             return true;
+        }
+
+        pub fn replace(self: *Self, idx: i32, data: T) bool {
+            if (self.size == 0) {
+                return false;
+            }
+            if (idx == 0) {
+                self.head.?.data = data;
+                return true;
+            } else if (idx == self.size) {
+                self.head.?.data = data;
+            }
+            // create loop-counter
+            var cnt: u32 = 0;
+            var cur = self.head;
+            // Iterate through list until `idx` or until EOL
+            while (cnt < idx and cur != null and cnt < self.size) : (cnt += 1) {
+                cur = cur.?.next;
+            }
+            // Return if EOL
+            if (cnt >= self.size) {
+                return false;
+            }
+            cur.?.data = data;
+            return true;
+        }
+
+        /// TODO: List clear with memory deallocation
+        pub fn clear(self: *Self) void {
+            if (self.size == 0) {
+                return;
+            }
         }
 
         /// # `list` - Get the element at the specified index
